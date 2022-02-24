@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Numb;
 using Except;
 
@@ -29,7 +29,7 @@ namespace visual_programming
                 massRN[i] = new RomanNumber((ushort)mass[i]);
                 Console.Write(massRN[i].ToString() + " ");
             }
-            Console.WriteLine("\n Sorted mass");
+            Console.WriteLine("\nSorted mass");
             Array.Sort(massRN);
             for (int i = 0; i < massRN.Length; i++)
             {
