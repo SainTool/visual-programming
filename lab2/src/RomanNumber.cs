@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using Except;
 
@@ -77,11 +77,9 @@ namespace Numb
         public int CompareTo(object? obj)
         {
             if (obj is RomanNumber person) {
-                short pp = ((short)person);
-                return (short)(num.CompareTo(person)); }
+                return ((short)num).CompareTo((short)person.num); 
+            }
             else throw new RomanNumberException("Некорректное значение параметра");
         }
-
-        
     }
 }
