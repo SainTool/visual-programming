@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 using Except;
 
@@ -25,12 +25,12 @@ namespace Numb
             num = n;
         }
         //Сложение римских чисел
-        public static RomanNumber Add(RomanNumber? n1, RomanNumber? n2)
+        public static RomanNumber operator +(RomanNumber? n1, RomanNumber? n2)
         {
             return new RomanNumber((ushort)(n1.num + n2.num));
         }
         //Вычитание римских чисел
-        public static RomanNumber Sub(RomanNumber? n1, RomanNumber? n2)
+        public static RomanNumber operator -(RomanNumber? n1, RomanNumber? n2)
         {
             if (n1.num - n2.num <= 0)
             {
@@ -39,13 +39,13 @@ namespace Numb
             return new RomanNumber((ushort)(n1.num - n2.num));
         }
         //Умножение римских чисел
-        public static RomanNumber Mul(RomanNumber? n1, RomanNumber? n2)
+        public static RomanNumber operator *(RomanNumber? n1, RomanNumber? n2)
         {
             return new RomanNumber((ushort)(n1.num * n2.num));
             throw new NotImplementedException();
         }
         //Целочисленное деление римских чисел
-        public static RomanNumber Div(RomanNumber? n1, RomanNumber? n2)
+        public static RomanNumber operator /(RomanNumber? n1, RomanNumber? n2)
         {
             if (n1.num / n2.num <=0)
             {
