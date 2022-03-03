@@ -79,6 +79,32 @@ namespace Numb.Tests
             RomanNumber b1 = new RomanNumber(t1), b2 = new RomanNumber(t2), b3 = new RomanNumber(t3);
             Assert.AreNotEqual(b3.ToString() + "I", (b1 / b2).ToString());
         }
+        [TestMethod()]
+        public void CheckArraySortTrue()
+        {
+            RomanNumber b1 = new RomanNumber(5), b2 = new RomanNumber(10), b3 = new RomanNumber(15), b4 = new RomanNumber(20);
+            RomanNumber[] expected = { b1, b2, b3, b4 };
+            RomanNumber[] startMass = { b4, b3, b2, b1 };
+            Array.Sort(startMass);
+            for(int i=0;i<4;i++)
+                Assert.AreEqual(expected[i], startMass[i]);
+        }
+        [TestMethod()]
+        public void CheckArraySortFalse()
+        {
+            RomanNumber b1 = new RomanNumber(5), b2 = new RomanNumber(10), b3 = new RomanNumber(15), b4 = new RomanNumber(20);
+            RomanNumber[] expected = { b2, b3, b4, b1 };
+            RomanNumber[] startMass = { b4, b3, b2, b1 };
+            Array.Sort(startMass);
+            for (int i = 0; i < 4; i++)
+                Assert.AreNotEqual(expected[i], startMass[i]);
+        }
+        [TestMethod()]
+        public void CheckCloneTrue()
+        {
+            RomanNumber b1 = new RomanNumber (5), b2 = (RomanNumber)b1.Clone();
+            Assert.AreNotEqual(b1, b2);
+        }
 
     }
 }
