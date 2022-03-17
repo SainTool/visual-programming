@@ -1,75 +1,35 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Reactive;
 using ReactiveUI;
-using RomanCalc.Models;
-using Numb;
-using Except;
+using Regexx.Models;
 
-namespace RomanCalc.ViewModels
+namespace Regexx.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public string expression = "";
-        public ReactiveCommand<string, string> OnClickCommand { get; }
-        public MainWindowViewModel()
+
+        string text;
+        public string Text
         {
-            OnClickCommand = ReactiveCommand.Create<string, string>((str) => Expression = str);
+            get => text;
+            set => this.RaiseAndSetIfChanged(ref text, value);
         }
-        public string Expression
+        string pattern;
+
+        public string Pattern
         {
-            set
-            {
-                if (expression == "Error")
-                    expression = "";
-                if (value != "=")
-                    this.RaiseAndSetIfChanged(ref expression, expression + value);
-                else
-                {
-                    try
-                    {
-                        if (expression.IndexOf('+') == 0 || expression.IndexOf('+') == expression.Length - 1 ||
-                            expression.IndexOf('-') == 0 || expression.IndexOf('-') == expression.Length - 1 ||
-                            expression.IndexOf('*') == 0 || expression.IndexOf('*') == expression.Length - 1 ||
-                            expression.IndexOf('/') == 0 || expression.IndexOf('/') == expression.Length - 1)
-                            throw new RomanNumberException("Error");
-                        if (expression.IndexOf('+') != -1)
-                        {
-                            RomanNumberExtend a = new(expression.Substring(0, expression.IndexOf('+')));
-                            RomanNumberExtend b = new(expression.Substring(expression.IndexOf('+')));
-                            this.RaiseAndSetIfChanged(ref expression, (a + b).ToString());
-                        }
-                        if (expression.IndexOf('-') != -1)
-                        {
-                            RomanNumberExtend a = new(expression.Substring(0, expression.IndexOf('-')));
-                            RomanNumberExtend b = new(expression.Substring(expression.IndexOf('-')));
-                            this.RaiseAndSetIfChanged(ref expression, (a - b).ToString());
-                        }
-                        if (expression.IndexOf('*') != -1)
-                        {
-                            RomanNumberExtend a = new(expression.Substring(0, expression.IndexOf('*')));
-                            RomanNumberExtend b = new(expression.Substring(expression.IndexOf('*')));
-                            this.RaiseAndSetIfChanged(ref expression, (a * b).ToString());
-                        }
-                        if (expression.IndexOf('/') != -1)
-                        {
-                            RomanNumberExtend a = new(expression.Substring(0, expression.IndexOf('/')));
-                            RomanNumberExtend b = new(expression.Substring(expression.IndexOf('/')));
-                            this.RaiseAndSetIfChanged(ref expression, (a / b).ToString());
-                        }
-                        expression = "";
-                    }
-                    catch (RomanNumberException)
-                    {
-                        this.RaiseAndSetIfChanged(ref expression, "Error");
-                    }
-                }
-            }
-            get
-            {
-                return expression;
-            }
+            get => pattern;
+            set => this.RaiseAndSetIfChanged(ref pattern, value);
         }
+        string result;
+        public string RegularResult
+        {
+            get => result;
+            set => this.RaiseAndSetIfChanged(ref result, value);
+        }
+        public string? FindRegular() => MyRegex.FindRegexInText(text, pattern);
+
     }
 }
