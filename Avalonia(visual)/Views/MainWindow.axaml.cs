@@ -34,14 +34,11 @@ namespace Regexx.Views
             };
             this.FindControl<Button>("saveFile").Click += async delegate
             {
-                var taskGetPath = new OpenFileDialog()
-                {
-                    Title = "Save File",
-                    Filters = null
-                }.ShowAsync((Window)this.VisualRoot);
-
-                string[]? pathToFile = await taskGetPath;
+                SaveFileDialog SaveFileBox = new SaveFileDialog();
+                SaveFileBox.Title = "Save File";
+                SaveFileBox.InitialFileName = "result.txt";
                 var contex = this.DataContext as MainWindowViewModel;
+                var pathToFile = await SaveFileBox.ShowAsync((Window)this.VisualRoot);
                 if (pathToFile != null)
                 {
                     using (StreamWriter writer = new StreamWriter(string.Join(@"\", pathToFile), false))
